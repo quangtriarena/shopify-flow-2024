@@ -1,0 +1,21 @@
+{
+	"name": "shopify-flow-app",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"client": "cd client && npm run dev",
+		"server": "cd server && npm run dev",
+		"client:prod": "cd client && npm run build",
+		"serve": "cd server && npm run serve",
+		"dev": "concurrently \"npm run client\" \"npm run server\"",
+		"production": "concurrently \"npm run client:prod\" \"npm run serve\"",
+		"pm2:prod": "pm2 kill && pm2 start ./server/ecosystem.config.cjs --env production"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"concurrently": "^9.0.1"
+	}
+}
