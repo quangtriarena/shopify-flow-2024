@@ -10,8 +10,8 @@ const StoreModel = sequelize.define(
 		},
 		shop: {
 			type: DataTypes.STRING,
-			allowNull: false,
 			primaryKey: true,
+			unique: true,
 		},
 		accessToken: {
 			type: DataTypes.STRING,
