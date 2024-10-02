@@ -20,12 +20,10 @@ function Exitframe() {
 			if (window.shopify.environment.embedded == true) {
 				const createApp = window["app-bridge"].default;
 				const Redirect = window["app-bridge"].actions.Redirect;
-
 				const app = createApp({
 					apiKey: import.meta.env.VITE_SHOPIFY_API_KEY,
 					host: params.get("host"),
 				});
-
 				const redirect = Redirect.create(app);
 				redirect.dispatch(Redirect.Action.REMOTE, decodeURIComponent(redirectUri));
 			}
@@ -34,8 +32,17 @@ function Exitframe() {
 		}
 	}, [app]);
 
+	const parentStyle = {
+		display: "flex",
+		justifyContent: "center",
+		alignItems: "center",
+		height: "100vh",
+	};
+
 	return (
-		<div className="page-loading">
+		<div
+			className=""
+			style={parentStyle}>
 			<Spinner size="large" />
 		</div>
 	);
