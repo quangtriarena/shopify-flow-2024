@@ -13,7 +13,7 @@ function Exitframe() {
 		let redirectUri = params.get("redirectUri");
 
 		if (shop) {
-			redirectUri = `https://arena-app-tt.ap.ngrok.io/auth?shop=${shop}`;
+			redirectUri = `https://${import.meta.env.VITE_SERVER_HOST}/auth?shop=${shop}`;
 		}
 
 		if (window["app-bridge"]) {
