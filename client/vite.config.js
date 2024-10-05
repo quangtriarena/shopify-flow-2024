@@ -5,10 +5,11 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
 	plugins: [react()],
 	server: {
+		port: "3005",
 		proxy: {
-			"^/auth(/|(\\?.*)?$)": "http://localhost:3000",
-			"^/api(/|(\\?.*)?$)": "http://localhost:3000",
-			"^/webhooks(/|(\\?.*)?$)": "http://localhost:3000",
+			"^/auth(/|(\\?.*)?$)": "http://arena-app-tt.ap.ngrok.io:3000",
+			"^/api(/|(\\?.*)?$)": "http://arena-app-tt.ap.ngrok.io:3000",
+			"^/webhooks(/|(\\?.*)?$)": "http://arena-app-tt.ap.ngrok.io:3000",
 		},
 	},
 });

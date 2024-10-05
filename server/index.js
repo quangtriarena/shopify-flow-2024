@@ -18,6 +18,8 @@ const fs = require("fs");
 
 const PORT = process.env.PORT || 3000;
 
+console.log("PORT", PORT);
+
 const isDev = process.env.NODE_ENV === "development";
 
 // console.log("process.cwd()", process.cwd());

@@ -1,0 +1,29 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "a34bd40ff2a53e796f1a0a85dbb64b32"
+name = "flow-app-2024"
+handle = "flow-app-2024"
+application_url = "https://arena-app-tt.ap.ngrok.io"
+embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "tamaki-co-shop.myshopify.com"
+include_config_on_deploy = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "write_products"
+
+[auth]
+redirect_urls = [
+  "https://arena-app-tt.ap.ngrok.io/auth/callback",
+  "https://arena-app-tt.ap.ngrok.io/auth/shopify/callback",
+  "https://arena-app-tt.ap.ngrok.io/api/auth/callback"
+]
+
+[webhooks]
+api_version = "2024-10"
+
+[pos]
+embedded = false
