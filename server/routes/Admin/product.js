@@ -1,4 +1,5 @@
 const express = require("express");
+const env = require("../../configs/enviroments");
 const axios = require("axios");
 // const StoreModel = require("../../models/store.model.js");
 
@@ -21,7 +22,7 @@ ProductRoutes.get("/", async (req, res) => {
 
 		const _response = await axios({
 			method: "post",
-			url: "https://49-tri-personalize.myshopify.com/admin/api/2024-07/graphql.json",
+			url: `https://${shop}/admin/api/${env.API_VER}/graphql.json`,
 			headers: {
 				"X-Shopify-Access-Token": accessToken,
 				"Content-Type": "application/json",

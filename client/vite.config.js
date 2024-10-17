@@ -1,15 +1,23 @@
 import { defineConfig } from "vite";
+import "dotenv/config";
 import react from "@vitejs/plugin-react";
 
-// https://vitejs.dev/config/
+const proxyOptions = {
+	target: `http://127.0.0.1:8082`,
+	changeOrigin: false,
+	secure: true,
+	ws: false,
+};
+
 export default defineConfig({
 	plugins: [react()],
 	server: {
-		port: "3005",
+		port: "5173",
 		proxy: {
-			"^/auth(/|(\\?.*)?$)": "http://arena-app-tt.ap.ngrok.io:3000",
-			"^/api(/|(\\?.*)?$)": "http://arena-app-tt.ap.ngrok.io:3000",
-			"^/webhooks(/|(\\?.*)?$)": "http://arena-app-tt.ap.ngrok.io:3000",
+			// "/(/|(\\?.*)?$)": proxyOptions,
+			"^/auth(/|(\\?.*)?$)": proxyOptions,
+			"^/api(/|(\\?.*)?$)": proxyOptions,
+			"^/webhooks(/|(\\?.*)?$)": proxyOptions,
 		},
 	},
 });

@@ -1,12 +1,15 @@
-require("dotenv").config();
+const path = require("path");
+
+require("dotenv").config({ path: path.resolve(process.cwd() + "../../.env") });
 
 const env = {
 	SHOPIFY_API_KEY: process.env.SHOPIFY_API_KEY,
 	SHOPIFY_API_SECRET: process.env.SHOPIFY_API_SECRET,
-	SHOPIFY_API_SCOPES: process.env.SHOPIFY_API_SCOPES,
-	HOST: process.env.HOST,
+	SCOPES: process.env.SCOPES,
+	HOST: process.env.SHOPIFY_APP_HOST,
 	SHOP: process.env.SHOP,
 	API_VER: process.env.API_VER,
+	PORT: process.env.PORT,
 
 	DB_USER: process.env.DB_USER,
 	DB_PASSWORD: process.env.DB_PASSWORD,

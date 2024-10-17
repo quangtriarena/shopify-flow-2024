@@ -59,13 +59,18 @@ const verifyRequest = async (req, res, next) => {
 		//#region [nếu không có data trong db thì thực hiện reAuth để update lại db]
 		if (!entryStoreModel) {
 			return reAuth(res, shop, host);
-		} else if (!entryStoreModel.accessToken) {
-			return reAuth(res, shop, host);
-		} else {
-			res.locals.accessToken = entryStoreModel?.accessToken;
-			res.locals.shop = shop;
-			return next();
 		}
+
+		if (!entryStoreModel.accessToken) {
+			return reAuth(res, shop, host);
+		}
+
+		console.log("entryStoreModel?.accessToken", entryStoreModel?.accessToken);
+
+		res.locals.accessToken = entryStoreModel?.accessToken;
+		res.locals.shop = shop;
+		return next();
+
 		//#endregion
 	} catch (error) {
 		console.log("verifyRequest error", error);

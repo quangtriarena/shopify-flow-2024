@@ -12,8 +12,9 @@
 		"production": "concurrently \"npm run client:prod\" \"npm run serve\"",
 		"pm2:prod": "pm2 kill && pm2 start ./server/ecosystem.config.cjs --env production",
 		"shopify": "shopify",
-		"dev_s": "shopify app dev --tunnel-url https://arena-app-tt.ap.ngrok.io:3005",
-		"generate": "shopify app generate",
+		"develop": "gulp && shopify app dev",
+		"serve_shopify": "shopify app serve",
+		"generate": "shopify app generate extension",
 		"app_config_push": "shopify app config push",
 		"deploy": "shopify app deploy"
 	},
@@ -25,6 +26,10 @@
 	},
 	"dependencies": {
 		"@shopify/app": "^3.58.2",
-		"@shopify/cli": "^3.68.0"
+		"@shopify/cli": "^3.68.0",
+		"@shopify/ui-extensions": "2024.10.0",
+		"@shopify/ui-extensions-react": "2024.10.0",
+		"dotenv": "^16.4.5",
+		"gulp": "^5.0.0"
 	}
 }

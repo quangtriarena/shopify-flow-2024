@@ -1,9 +1,7 @@
-require("dotenv").config();
 require("./models/index");
 
 const express = require("express");
 const app = express();
-const bodyParser = require("body-parser");
 const cors = require("cors");
 const verifyRequest = require("./middlewares/verifyToken.js");
 const CSPMiddleware = require("./middlewares/csp.js");
@@ -16,27 +14,26 @@ const env = require("./configs/enviroments");
 const path = require("path");
 const fs = require("fs");
 
-const PORT = process.env.PORT || 3000;
+const STATIC_PATH =
+	process.env.NODE_ENV === "production"
+		? path.resolve(process.cwd(), "../client/dist")
+		: path.resolve(process.cwd(), "../client");
 
-console.log("PORT", PORT);
+const PORT = process.env.BACKEND_PORT;
 
 const isDev = process.env.NODE_ENV === "development";
 
-// console.log("process.cwd()", process.cwd());
-// console.log("path", path.resolve(__dirname, "../client/dist", "index.html"));
-// const html = fs.readFileSync(path.resolve(__dirname, "../client/dist", "index.html"), "utf8");
-
-// console.log("html", html);
-
 const START_SERVER = () => {
-	app.use(bodyParser.json());
-	app.use(bodyParser.urlencoded({ extended: true }));
+	app.use(express.json());
+	app.use(express.urlencoded({ extended: true }));
 	app.use(cors());
 
 	//#region [middleware csp]
 	app.use(CSPMiddleware);
 	app.use(morgan("dev"));
 	//#endregion
+
+	app.use(express.static(STATIC_PATH, { index: false }));
 
 	//#region [test]
 	app.get("/status", (req, res) => {
@@ -53,12 +50,31 @@ const START_SERVER = () => {
 	//#endregion
 
 	if (!isDev) {
-		app.use(express.static(path.resolve(__dirname, "../client/dist")));
+		// production
+		console.log("******************************");
+		console.log("*          Production        *");
+		console.log("******************************");
+		console.log("");
+
+		app.use(express.static(STATIC_PATH));
 		app.use(compression());
-		app.use("/*", (req, res, next) => {
+		app.use("/*", (req, res) => {
 			res.status(200)
 				.set("Content-Type", "text/html")
-				.send(fs.readFileSync(path.resolve(__dirname, "../client/dist", "index.html")));
+				.send(fs.readFileSync(path.join(STATIC_PATH, "index.html")));
+		});
+	} else {
+		// development
+		console.log("******************************");
+		console.log("*          Development       *");
+		console.log("******************************");
+		console.log("");
+
+		app.use("/*", (req, res) => {
+			return res
+				.status(200)
+				.set("Content-Type", "text/html")
+				.send(fs.readFileSync(path.join(STATIC_PATH, "install.html")));
 		});
 	}
 
@@ -69,7 +85,7 @@ const START_SERVER = () => {
 
 (async () => {
 	try {
-		console.log("starting server...");
+		console.log("WELCOME TO BACKEND APP");
 		START_SERVER();
 	} catch (error) {
 		console.error(error);
